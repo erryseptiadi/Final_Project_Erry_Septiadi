@@ -1,0 +1,654 @@
+{
+  "name": "FINAL PROJECT",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Training Needs Analysis (TNA) – Public Speaking for Corporate",
+        "formDescription": "Form ini ditujukan bagi PIC/HR/representative perusahaan untuk membantu kami memahami kebutuhan pengembangan kemampuan public speaking di organisasi Anda.\n\nInformasi yang diberikan akan menjadi dasar dalam menyusun rekomendasi materi, metode, dan bentuk pelatihan yang sesuai dengan kebutuhan perusahaan dan karakteristik peserta.\n\nMohon isi berdasarkan kondisi, kebutuhan, dan tantangan yang saat ini dihadapi oleh tim atau karyawan di perusahaan Anda.\n\nEstimasi waktu pengisian: 5–10 menit.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nama PIC",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Jabatan",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Nama Perusahaan",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Tantangan Saat Ini",
+              "placeholder": "Masalah public speaking apa yang paling dirasakan saat ini, dan di situasi apa itu paling sering muncul? (presentasi ke atasan, pitching klien, MC, dll.)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Kondisi Saat Ini",
+              "placeholder": "Bagaimana level kemampuan/kepercayaan diri peserta saat ini? dan apakah pernah ikut training sejenis sebelumnya?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ekspetasi",
+              "placeholder": "Perubahan atau hasil konkret apa yang diharapkan setelah mengikuti training?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Gambaran Calon Peserta",
+              "placeholder": "Jumlah peserta, Jabatan/level peserta (Staff/Supervisor/Manajer/Eksekutif), Rentang usia",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Teknis Pelatihan",
+              "placeholder": "Preferensi waktu & durasi pelaksanaan dan Format (Offline/Online/Hybrid)",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a02f74d2-2f80-4320-9c4a-b7f794e2d654",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        48,
+        -16
+      ],
+      "webhookId": "ae38682b-5d32-4554-9c43-f2d035509ea8"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Berikut data TNA dari calon klien. Susun draft proposal sesuai format yang ditentukan.\n\nNama Perusahaan/Instansi: {{ $json['Nama Perusahaan'] }}\nPIC: {{ $json['Nama PIC'] }} {{ $json.Jabatan }}\nEmail: {{ $json.Email }}\n\nTantangan Saat Ini: {{ $json['Tantangan Saat Ini'] }}\nKondisi Saat Ini: {{ $json['Kondisi Saat Ini'] }}\nEkspektasi/Hasil yang Diinginkan: {{ $json.Ekspetasi }}\n\nGambaran Peserta: {{ $json['Gambaran Calon Peserta'] }}\nTeknis Pelatihan: {{ $json['Teknis Pelatihan'] }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "Kamu adalah konsultan senior pengembangan SDM yang mengkhususkan diri pada program pelatihan Public Speaking & Komunikasi.\n\nTugasmu: membaca hasil Training Needs Analysis\n(TNA) dari calon klien, lalu menyusun draft proposal pelatihan yang relevan dan profesional berdasarkan data tersebut.\n\nATURAN PENTING:\n- Dasarkan seluruh analisis dan rekomendasi HANYA pada data TNA yang diberikan. Jangan mengarang detail perusahaan, jumlah peserta, atau budget yang tidak disebutkan.\n- Jika ada informasi penting yang tidak tersedia atau kurang jelas, tandai sebagai \"[PERLU DIKONFIRMASI TIM PUBLIC SPEAKING ACADEMY]\" alih-alih menebak atau mengisi dengan asumsi sendiri.\n- Ini adalah DRAFT yang akan direview dan disesuaikan oleh manusia sebelum dikirim ke klien. Jangan cantumkan harga karena ini hanya brief/gambaran awal.\n- Sesuaikan nada dan kompleksitas bahasa proposal dengan jabatan/level peserta yang disebutkan (proposal untuk level eksekutif ditulis lebih ringkas dan strategis, untuk staff/supervisor boleh lebih teknis dan rinci).\n- Gunakan Bahasa Indonesia profesional, hangat, dan persuasif tanpa berlebihan.\n\nGunakan heading persis seperti berikut untuk output:\nJUDUL TRAINING\nSub Judul Training\n## A. Ringkasan Kebutuhan\n(3-4 kalimat: siapa kliennya, masalah utama yang dihadapi, dan di situasi apa masalah itu paling terasa — diambil langsung dari jawaban \"masalah & situasi\" di TNA)\n\n## B. Tujuan Pelatihan\n(3-5 tujuan spesifik, diturunkan dari kondisi saat ini vs ekspektasi yang disebutkan\nklien — tunjukkan \"gap\"-nya secara eksplisit)\n\n## C. Rekomendasi Modul & Struktur Program\n(Daftar modul yang relevan dengan level peserta dan masalah yang disebutkan. Setiap modul: nama, tujuan singkat, metode penyampaian [materi/praktik/role-play/video review]. Kalau klien pernah ikut training sejenis sebelumnya, modul harus terasa berbeda/lebih lanjut dari itu, bukan mengulang.)\n\n## D. Format & Durasi\n(Jumlah sesi, durasi per sesi, metode [offline/online/hybrid] sesuai preferensi yang disebutkan, rasio trainer:peserta yang disarankan berdasarkan jumlah peserta)\n\n## E. Hasil yang Diharapkan (Outcome)\n(Terjemahkan ekspektasi klien jadi hasil yang terukur dan realistis)\n\n## F. Catatan Internal untuk Tim Public Speaking Academy (BAGIAN INI TIDAK UNTUK KLIEN)\n(Poin yang masih perlu dikonfirmasi, kejanggalan/red flag dari data TNA yang perlu didiskusikan saat meeting pertama)"
+        }
+      },
+      "id": "ddf7cf9f-66ad-495b-a95e-d8256b0b0af4",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        336,
+        144
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 3000
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "953a078f-6de7-4c93-ac5d-35c57e70a764",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        368
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "shso4Wxgq8QHR2To",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('On form submission').item.json.Email }}"
+      },
+      "id": "49c014e0-e75d-42c9-97d6-aa7b9eecce55",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"judul_training\": {\n      \"type\": \"string\",\n      \"description\": \"Judul utama pelatihan\"\n    },\n    \"sub_judul_training\": {\n      \"type\": \"string\",\n      \"description\": \"Sub judul pelatihan\"\n    },\n    \"ringkasan_kebutuhan\": {\n      \"type\": \"string\",\n      \"description\": \"Penjelasan rinci mengenai ringkasan kebutuhan dan masalah klien\"\n    },\n    \"tujuan_pelatihan\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Daftar tujuan pelatihan yang ingin dicapai\"\n    },\n    \"modul_program\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"nama_modul\": { \"type\": \"string\" },\n          \"tujuan\": { \"type\": \"string\" },\n          \"metode\": { \"type\": \"string\" }\n        },\n        \"required\": [\"nama_modul\", \"tujuan\", \"metode\"]\n      },\n      \"description\": \"Rincian modul dan struktur program\"\n    },\n    \"format_dan_durasi\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"durasi\": { \"type\": \"string\" },\n        \"metode\": { \"type\": \"string\" },\n        \"rasio_trainer\": { \"type\": \"string\" },\n        \"lokasi\": { \"type\": \"string\" }\n      },\n      \"description\": \"Detail format dan pelaksanaan pelatihan\"\n    },\n    \"outcome\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Hasil yang diharapkan setelah pelatihan\"\n    },\n    \"catatan_internal\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Poin-poin catatan internal untuk tim Training Advisor\"\n    },\n    \"estimasi_investasi\": {\n      \"type\": \"string\",\n      \"description\": \"Informasi estimasi investasi\"\n    }\n  },\n  \"required\": [\n    \"judul_training\",\n    \"sub_judul_training\",\n    \"ringkasan_kebutuhan\",\n    \"tujuan_pelatihan\",\n    \"modul_program\",\n    \"format_dan_durasi\",\n    \"outcome\",\n    \"catatan_internal\"\n  ]\n}"
+      },
+      "id": "dead613e-aba7-4ee1-b0e3-4be1399be956",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        368
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cebbc0c4-03a7-4ee3-8579-0f66416ff4f1",
+              "name": "Judul Training",
+              "value": "={{ $json.output.judul_training }}",
+              "type": "string"
+            },
+            {
+              "id": "5788f97a-fef2-48b7-9ae6-b4f0f112d894",
+              "name": "Sub Judul Training",
+              "value": "={{ $json.output.sub_judul_training }}",
+              "type": "string"
+            },
+            {
+              "id": "d2f26a1f-3d77-4d82-a0bd-90ab42acb883",
+              "name": "Nama Perusahaan",
+              "value": "={{ $('On form submission').item.json['Nama Perusahaan'] }}",
+              "type": "string"
+            },
+            {
+              "id": "b66e69a8-7771-47d9-9728-759dcd90605a",
+              "name": "Ringkasan Kebutuhan",
+              "value": "={{ $json.output.ringkasan_kebutuhan }}",
+              "type": "string"
+            },
+            {
+              "id": "5e120e32-1785-4841-ae0f-7cb9d34fa273",
+              "name": "Tujuan Pelatihan",
+              "value": "={{ $json.output.tujuan_pelatihan }}",
+              "type": "string"
+            },
+            {
+              "id": "12158cec-d1cf-45c0-9ebc-72ee1ea84275",
+              "name": "Outcome Pelatihan",
+              "value": "={{ $json.output.outcome }}",
+              "type": "string"
+            },
+            {
+              "id": "a227967c-de50-4a33-97e8-fdbc65d5124d",
+              "name": "Modul Sesi 1",
+              "value": "=Materi {{ $json.output.modul_program[0].nama_modul }}\nTujuan {{ $json.output.modul_program[0].tujuan }} \nMetode {{ $json.output.modul_program[0].metode }}",
+              "type": "string"
+            },
+            {
+              "id": "81be3fb5-3348-4114-a665-beb596f59d39",
+              "name": "Modul Sesi 2",
+              "value": "=Materi {{ $json.output.modul_program[1].nama_modul }}\nTujuan {{ $json.output.modul_program[1].tujuan }}\nMetode {{ $json.output.modul_program[1].metode }}",
+              "type": "string"
+            },
+            {
+              "id": "fde4c6da-3918-4e5d-977d-f2024bc30d0b",
+              "name": "Modul Sesi 3",
+              "value": "=Materi {{ $json.output.modul_program[2].nama_modul }}\nTujuan {{ $json.output.modul_program[2].tujuan }}\nMetode {{ $json.output.modul_program[2].metode }}",
+              "type": "string"
+            },
+            {
+              "id": "207cb987-d97a-46d5-bc01-96dc4ef6d6e8",
+              "name": "Modul Sesi 4",
+              "value": "=Materi {{ $json.output.modul_program[3].nama_modul }}\nTujuan {{ $json.output.modul_program[3].tujuan }}\nMetode {{ $json.output.modul_program[3].metode }}",
+              "type": "string"
+            },
+            {
+              "id": "bb74e153-de26-44ae-b2c9-61bc3127f069",
+              "name": "Format dan Durasi",
+              "value": "=Durasi  {{ $json.output.format_dan_durasi.durasi }}\nMetode {{ $json.output.format_dan_durasi.metode }}\nRasio Trainer {{ $json.output.format_dan_durasi.rasio_trainer }}\nLokasi {{ $json.output.format_dan_durasi.lokasi }}",
+              "type": "string"
+            },
+            {
+              "id": "098e471e-f885-4f4b-90d0-9a1cdea7517f",
+              "name": "Catatan Internal (BUKAN UNTUK KLIEN)",
+              "value": "={{ $json.output.catatan_internal }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5799a3f-9ae0-4b61-940e-e42e6675ee6e",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        736,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "copy",
+        "fileId": {
+          "__rl": true,
+          "value": "19tN3x3BK8HuKqtJFedVqOBiBH_t92Qi5rNqvRbjTd7M",
+          "mode": "list",
+          "cachedResultName": "Master_Output_TNA",
+          "cachedResultUrl": "https://docs.google.com/presentation/d/19tN3x3BK8HuKqtJFedVqOBiBH_t92Qi5rNqvRbjTd7M/edit?usp=drivesdk"
+        },
+        "name": "=Proposal Training {{ $('Edit Fields').item.json['Nama Perusahaan'] }} - {{ $('Edit Fields').item.json['Judul Training'] }}",
+        "options": {}
+      },
+      "id": "3f2a1b9c-1a2b-4c3d-9e4f-5a6b7c8d9e0f",
+      "name": "Copy Template Slides",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        960,
+        144
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "0d8zW9mu2jsjioQk",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "replaceText",
+        "presentationId": "={{ $json.id }}",
+        "textUi": {
+          "textValues": [
+            {
+              "text": "{{JudulTraining}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Judul Training'] }}"
+            },
+            {
+              "text": "{{SubJudulTraining}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Sub Judul Training'] }}"
+            },
+            {
+              "text": "{{NamaPerusahaan}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Nama Perusahaan'] }}"
+            },
+            {
+              "text": "{{RingkasanKebutuhan}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Ringkasan Kebutuhan'] }}"
+            },
+            {
+              "text": "{{TujuanPelatihan}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Tujuan Pelatihan'] }}"
+            },
+            {
+              "text": "{{OutcomePelatihan}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Outcome Pelatihan'] }}"
+            },
+            {
+              "text": "{{ModulSesi1}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Modul Sesi 1'] }}"
+            },
+            {
+              "text": "{{ModulSesi2}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Modul Sesi 2'] }}"
+            },
+            {
+              "text": "{{ModulSesi3}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Modul Sesi 3'] }}"
+            },
+            {
+              "text": "{{ModulSesi4}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Modul Sesi 4'] }}"
+            },
+            {
+              "text": "{{FormatDanDurasi}}",
+              "replaceText": "={{ $('Edit Fields').item.json['Format dan Durasi'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4a5b6c7d-8e9f-4012-a3b4-c5d6e7f80912",
+      "name": "Isi Template Slides",
+      "type": "n8n-nodes-base.googleSlides",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        144
+      ],
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "c8vkvAVIFoYg4AaI",
+          "name": "Google Slides account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Z46Va7kkYVTjGRpr0V12JQ6SoeJ71qTzbrigBNEusm4",
+          "mode": "list",
+          "cachedResultName": "TNA_PSAcademy",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z46Va7kkYVTjGRpr0V12JQ6SoeJ71qTzbrigBNEusm4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z46Va7kkYVTjGRpr0V12JQ6SoeJ71qTzbrigBNEusm4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nama PIC": "={{ $json['Nama PIC'] }}",
+            "Jabatan": "={{ $json.Jabatan }}",
+            "Nama Perusahaan": "={{ $json['Nama Perusahaan'] }}",
+            "Email": "={{ $json.Email }}",
+            "Tantangan Saat ini": "={{ $json['Tantangan Saat Ini'] }}",
+            "Kondisi Saat ini": "={{ $json['Kondisi Saat Ini'] }}",
+            "Ekspedisi": "={{ $json.Ekspetasi }}",
+            "Gambaran Calon Klien": "={{ $json['Gambaran Calon Peserta'] }}",
+            "Teknis Pelatihan": "={{ $json['Teknis Pelatihan'] }}",
+            "Tanggal Pengisian": "={{ $json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nama PIC",
+              "displayName": "Nama PIC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Jabatan",
+              "displayName": "Jabatan",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nama Perusahaan",
+              "displayName": "Nama Perusahaan",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tantangan Saat ini",
+              "displayName": "Tantangan Saat ini",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Kondisi Saat ini",
+              "displayName": "Kondisi Saat ini",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Ekspedisi",
+              "displayName": "Ekspedisi",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gambaran Calon Klien",
+              "displayName": "Gambaran Calon Klien",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Teknis Pelatihan",
+              "displayName": "Teknis Pelatihan",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tanggal Pengisian",
+              "displayName": "Tanggal Pengisian",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "58995ef7-a889-41b6-8d4c-01c0e7da521a",
+      "name": "Append row in sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        -160
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "0kzxktsKYTJrGW2T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "=Form TNA  {{ $json['Nama Perusahaan'] }} Diterima ",
+        "emailType": "text",
+        "message": "=Halo {{ $json['Nama PIC'] }}\ndari {{ $json['Nama Perusahaan'] }}\n\nTerima kasih atas waktu yang Anda luangkan untuk mengisi formulir TNA Public Speaking.\n\nSaat ini TNA Anda sedang dipelajari oleh tim kami untuk disesuaikan dengan tantangan dan objective pelatihan yang Anda harapkan.\n\nMOHON TUNGGU SEBENTAR\nProses analisis membutuhkan waktu 1 s/d 2 Jam.\nSetelah draf program siap, tim kami akan mengirimkan undangan meeting untuk mendiskusikan proposal pelatihan ini secara langsung bersama Anda.\nSampai jumpa di sesi meeting!\n\nSalam, \nPublic Speaking Academy ",
+        "options": {}
+      },
+      "id": "c6dc3f5e-6c3f-4017-a59b-b0d213749e45",
+      "name": "Send a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        -160
+      ],
+      "webhookId": "74bd2e25-338a-4240-ad50-b350df21c16b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ircg51e5xOCtmdWb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Background\nProses analisis Training Needs Analysis (TNA) dan penyusunan proposal pelatihan untuk calon klien corporate secara manual memakan waktu lama. Hal ini sering menyebabkan keterlambatan respon  dari tim Training Advisor kepada calon klien.\n\nAlasan Automasi\n\nKecepatan Respons: Mengirimkan konfirmasi otomatis seketika ke klien via email agar calon klien merasa ditangani dengan cepat.\n\nEfisiensi Waktu & SDM: Memangkas durasi penyusunan draf proposal dari hitungan jam menjadi hitungan detik dengan bantuan AI.\n\nStandardisasi Output: Menjaga kualitas analisis TNA, struktur modul, dan draf presentasi proposal agar selalu konsisten dan siap dirapikan oleh tim internal sebelum meeting.",
+        "height": 576
+      },
+      "id": "b90515b3-d178-47eb-b205-8b905668b1e2",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "6676926326 ",
+        "text": "[NOTIFIKASI - UPDATE TNA & PROGRAM]\n\nHalo Tim Public Speaking Academy,\n\nAda Training Needs Analysis (TNA) baru nih. Selain itu, seluruh rangkaian program terkait juga udah selesai dilaksanakan. \n\n📌 Detail Update: \nSilakan cek slide presentasi pada tautan berikut ya https://drive.google.com/drive/folders/1Es0PpzAxDdK9U2rFFxE0XkVoxwoVyrzu, dan mohon review ya sebelum di desain proposal serta penjadwalan meeting dengan klien.\n\nThank you",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1408,
+        144
+      ],
+      "id": "5a43715f-417d-4f48-96e1-0d7cf1ec95fa",
+      "name": "Send a text message",
+      "webhookId": "b3056ff5-3a6c-46ea-89a6-23d95fa7b1d7",
+      "credentials": {
+        "telegramApi": {
+          "id": "3bRA7A4BzSvkzv5Y",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Copy Template Slides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy Template Slides": {
+      "main": [
+        [
+          {
+            "node": "Isi Template Slides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Isi Template Slides": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "469762c7-dcb2-4a8c-a7bc-26a2e195d90e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac6d4853facc14f0376061ffed9a930bbd7b1d21f54f3fd14894818651d3bb18"
+  },
+  "nodeGroups": [],
+  "id": "jlnsHjzmtkyAd2hN",
+  "tags": []
+}
